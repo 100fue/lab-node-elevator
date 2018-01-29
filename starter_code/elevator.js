@@ -3,35 +3,45 @@ class Elevator {
     this.floor      = 0;
     this.MAXFLOOR   = 10;
     this.requests   = [];
-    this.position   = this.floor;
     this.direction  = "up";
+    this.setInterval;
   }
 
   start() {
-    setInterval(update,1000);
+    this.setInterval = setInterval(() => {
+      this.update();
+      this.floorUp();
+    },1000);
   }
 
   stop() { 
-    let stopSetInterval = setInterval(update,1000);
-    clearInterval(stopSetInterval);
+    clearInterval(this.setInterval);
   }
   
   update() { 
-    // console.log(this.floor += 1);
+     return this.log();
   }
 
   _passengersEnter() { }
   _passengersLeave() { }
 
-  floorUp() { 
-    if(this.floor == 0){
-      this.floor += 1;
+  floorUp() {
+
+    if(this.floor < this.MAXFLOOR && this.direction == "up"){
+      this.floor++;
+    }else{
+      this.direction = "down";
+      this.floorDown();
     }
-  }
+ 
+ }
 
   floorDown() {
-    if(this.floor == this.MAXFLOOR){
-      this.floor -= 1;
+    if(this.floor > 0 && this.direction == "down"){
+      this.floor --;
+    }else{
+      this.direction = "up";
+      this.floorUp();
     }
   }
 
@@ -40,8 +50,8 @@ class Elevator {
   }
 
   log() {
-    console.log(this.position);
-    console.log(this.direction);
+    console.log("you are in floor: " + this.floor);
+    console.log("you direction is " + this.direction);
   }
 }
 

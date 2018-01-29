@@ -1,9 +1,5 @@
 const Elevator = require('./elevator.js');
 
+let elevator1 = new Elevator();
 
-
-// function update(){
-//         console.log("hola");
-//   }
-  
-// setInterval(update,1000);
+elevator1.start();
