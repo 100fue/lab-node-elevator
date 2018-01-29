@@ -1,10 +1,13 @@
 class Elevator {
   constructor(){
-    this.floor      = 0;
-    this.MAXFLOOR   = 10;
-    this.requests   = [];
-    this.direction  = "up";
+    this.floor        = 0;
+    this.MAXFLOOR     = 10;
+    this.watingList   = [];
+    this.passengers   = [];
+    this.requests     = [];
+    this.direction    = "up";
     this.setInterval;
+    
   }
 
   start() {
@@ -22,7 +25,9 @@ class Elevator {
      return this.log();
   }
 
-  _passengersEnter() { }
+  _passengersEnter() {
+
+  }
   _passengersLeave() { }
 
   floorUp() {
@@ -45,13 +50,15 @@ class Elevator {
     }
   }
 
-  call() {
-
+  call(person) {
+    this.waitingList.push(person);
+    this.requests.push(person.originFloor);
   }
 
   log() {
     console.log("you are in floor: " + this.floor);
     console.log("you direction is " + this.direction);
+    // console.log(Person.name + "get into");
   }
 }
 
