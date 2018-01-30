@@ -7,13 +7,14 @@ class Elevator {
     this.requests     = [];
     this.direction    = "up";
     this.setInterval;
-    
   }
 
   start() {
     this.setInterval = setInterval(() => {
       this.update();
       this.floorUp();
+      this._passengersLeave();
+      this._passengersEnter();
     },1000);
   }
 
@@ -22,13 +23,29 @@ class Elevator {
   }
   
   update() { 
-     return this.log();
+    
+    return this.log();
   }
 
   _passengersEnter() {
-
+    this.watingList.forEach( (e,i) => {
+      if(e.originFloor == this.floor){
+        this.passengers.push(e);
+        console.log(e.name + " get into the elevator");
+        this.watingList.splice(i,1);
+      }
+    })
   }
-  _passengersLeave() { }
+
+  _passengersLeave() {
+    this.passengers.forEach( (e,i) => {
+      if(e.destinationFloor == this.floor){
+        this.passengers.splice(i,1);
+        console.log(e.name + " get out of the elevator");
+        this.requests.splice(i,1);
+      }
+    })
+  }
 
   floorUp() {
 
@@ -38,7 +55,6 @@ class Elevator {
       this.direction = "down";
       this.floorDown();
     }
- 
  }
 
   floorDown() {
@@ -51,14 +67,13 @@ class Elevator {
   }
 
   call(person) {
-    this.waitingList.push(person);
+    this.watingList.push(person);
     this.requests.push(person.originFloor);
   }
 
   log() {
     console.log("you are in floor: " + this.floor);
     console.log("you direction is " + this.direction);
-    // console.log(Person.name + "get into");
   }
 }
 
